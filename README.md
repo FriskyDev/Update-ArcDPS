@@ -26,8 +26,8 @@ remain open after executing the script so you can see the result. Just close the
 or type exit and `Enter`.
 
 The shortcuts use a relative path to the local folder. To move them to your desktop, you will
-need to either copy the script to your desktop, or place the script in your normal scripts folder
-and update the shortcut path to the script.
+need to either copy the script to your desktop or place the script in your normal scripts folder
+and update either the shortcut path to the script, or the `Start In` folder.
 
 The format of the shortcut target command is as shown (this example is for the revert command):
 

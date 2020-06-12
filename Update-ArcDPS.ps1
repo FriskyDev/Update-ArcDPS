@@ -59,7 +59,7 @@ $install_path = Join-Path $GuildWars2InstallDirectory $ArcDPS_DLL
 
 If ($revert) {
     If ($uninstall) {
-        Write-Host "You may only specify either -revert or -uninstall, but not both." -ForegroundColor Red
+        Write-Host -ForegroundColor Red "You may only specify either -revert or -uninstall, but not both."
         exit
     }
 
@@ -68,7 +68,7 @@ If ($revert) {
         $backup_path = "{0}.backup" -f $install_path
         If (-Not (Test-Path $backup_path)) {
             Write-Host "There is currently no backup"
-            Write-Host "ArcDPS could not be reverted" -ForegroundColor Red
+            Write-Host -ForegroundColor Red "ArcDPS could not be reverted"
             exit
         }
         If (Test-Path $install_path) {
@@ -77,17 +77,17 @@ If ($revert) {
             Move-Item $backup_path -Destination $install_path
             Move-Item ("{0}.temp_backup" -f $install_path) -Destination $backup_path
             If (Test-Path $install_path -NewerThan (Get-Item $backup_path).LastWriteTime) {
-                Write-Host "ArcDPS is now newer than backup (Installed)" -ForegroundColor Cyan
+                Write-Host -ForegroundColor Cyan "ArcDPS is now newer than backup (Installed)"
             } Else {
-                Write-Host "Backup is now newer than ArcDPS (Reverted)" -ForegroundColor Cyan
+                Write-Host -ForegroundColor Cyan "Backup is now newer than ArcDPS (Reverted)"
             }
-            Write-Host "ArcDPS reverted to backup" -ForegroundColor Green
+            Write-Host -ForegroundColor Green "ArcDPS reverted to backup"
         } Else {
             Move-Item $backup_path -Destination $install_path
-            Write-Host "ArcDPS reverted to backup" -ForegroundColor Green
+            Write-Host -ForegroundColor Green "ArcDPS reverted to backup"
         }
     } catch {
-        Write-Host "Error: Could not revert ArcDPS" -ForegroundColor Red
+        Write-Host -ForegroundColor Red "Error: Could not revert ArcDPS"
     }
 
     exit
@@ -109,12 +109,12 @@ If ($uninstall) {
             $was_uninstalled = $true
         }
         If ($was_uninstalled) {
-            Write-Host "ArcDPS removed" -ForegroundColor Green
+            Write-Host -ForegroundColor Green "ArcDPS removed"
         } Else {
-            Write-Host "ArcDPS was not currently installed" -ForegroundColor Cyan
+            Write-Host -ForegroundColor Cyan "ArcDPS was not currently installed"
         }
     } catch {
-        Write-Host "Error: Could not uninstall ArcDPS" -ForegroundColor Red
+        Write-Host -ForegroundColor Red "Error: Could not uninstall ArcDPS"
     }
 
     exit
@@ -125,14 +125,23 @@ $uri = $ArcDPS_Site+$ArcDPS_DLL
 $out = Join-Path $env:TEMP $ArcDPS_DLL
 Write-Host ("Requesting file: {0}" -f $uri)
 try {
-    $response = Invoke-WebRequest -Uri $uri -OutFile $out
+    $response = Invoke-WebRequest -Uri $uri -PassThru -OutFile $out -ErrorAction Stop
+    If ($response.StatusCode -eq 200) {
+        $out_file = Get-ChildItem $out
+        $last_update = [DateTime]::Parse($response.Headers["Last-Modified"])
+        $out_file.LastWriteTime = $last_update
+    } Else {
+        Write-Host -ForegroundColor Red ("Error: {0} failed get ArcDPS" -f $response.StatusCode)
+        exit
+    }
 } catch {
-    Write-Host ("Error: ({0}) failed to download ArcDPS" -f $_.Exception.Response.StatusCode.Value__) -ForegroundColor Red
+    $statusCode = $_.Exception.Response.StatusCode.value__
+    Write-Host -ForegroundColor Red ("Error: {0} failed to download ArcDPS" -f $statusCode)
     exit
 }
 
 # check if the file is newer
-$dl_date = (Get-Item $out).CreationTime
+$dl_date = (Get-Item $out).LastWriteTime
 $need_install = $false
 If (Test-Path $install_path) {
     # ArcDPS is currently installed
@@ -167,9 +176,9 @@ If ($need_install) {
     }
     Move-Item -Path $out -Destination $install_path
     Write-Host ("ArcDPS: {0:G}" -f (Get-Item $install_path).LastWriteTime)
-    Write-Host "Installed new version of ArcDPS" -ForegroundColor Green
+    Write-Host -ForegroundColor Green "Installed new version of ArcDPS"
 } Else {
     Write-Host ("ArcDPS Site: {0:G}" -f $dl_date)
     Write-Host ("  Installed: {0}" -f $install_date)
-    Write-Host "ArcDPS is already up to date." -ForegroundColor Green
+    Write-Host -ForegroundColor Green "ArcDPS is already up to date."
 }
