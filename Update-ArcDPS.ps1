@@ -51,7 +51,7 @@ param(
 
 $ArcDPS_Site = "https://www.deltaconnected.com/arcdps/x64/"
 $ArcDPS_DLL = "d3d9.dll"
-$ArcDPS_HashFile = $ArcDPS_DLL + ".md5sum"
+$ArcDPS_HashFile = $ArcDPS_DLL+".md5sum"
 
 $GuildWars2InstallDirectory = Join-Path $env:ProgramFiles -ChildPath "Guild Wars 2\bin64"
 
@@ -127,6 +127,30 @@ Write-Host ("Requesting file: {0}" -f $uri)
 try {
     $response = Invoke-WebRequest -Uri $uri -PassThru -OutFile $out -ErrorAction Stop
     If ($response.StatusCode -eq 200) {
+        # now download the MD5 checksum
+        $md5_uri = $ArcDPS_Site+$ArcDPS_HashFile
+        Write-Host ("Requesting file: {0}" -f $md5_uri)
+        $md5_response = Invoke-WebRequest -Uri $md5_uri -ErrorAction Stop
+        If ($md5_response.StatusCode -eq 200) {
+            $bytes = $md5_response.Content
+            $md5_from_site = [System.Text.Encoding]::ASCII.GetString($bytes)
+            $md5_from_site = $md5_from_site.SubString(0, $md5_from_site.IndexOf(' ')).ToUpper()
+            Write-Host "Validating MD5 checksum..."
+            Write-Host ("         MD5: {0}" -f $md5_from_site)
+            $md5_of_file = Get-FileHash -Algorithm MD5 -Path $out
+            $md5_computed = $md5_of_file.Hash.ToUpper()
+            Write-Host ("Computed MD5: {0}" -f $md5_computed)
+            If ($md5_from_site -eq $md5_computed) {
+                Write-Host "File is legit"
+            } Else {
+                Write-Host -ForegroundColor Red "Error: Downloaded file does not match MD5 hash"
+                exit
+            }
+        } Else {
+            Write-Host -ForegroundColor Red ("Error: {0} failed get ArcDPS MD5 hash" -f $response.StatusCode)
+            exit
+        }
+
         $out_file = Get-ChildItem $out
         $last_update = [DateTime]::Parse($response.Headers["Last-Modified"])
         $out_file.LastWriteTime = $last_update
@@ -137,6 +161,7 @@ try {
 } catch {
     $statusCode = $_.Exception.Response.StatusCode.value__
     Write-Host -ForegroundColor Red ("Error: {0} failed to download ArcDPS" -f $statusCode)
+    Write-Host -ForegroundColor Yellow ("Debug: {0}" -f $_.Exception)
     exit
 }
 
