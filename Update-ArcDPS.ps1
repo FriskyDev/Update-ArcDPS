@@ -49,6 +49,17 @@ param(
     [switch]$uninstall = $false
 )
 
+'Update-ArcDPS - ArcDPS Auto-Updater'
+Write-Host -ForegroundColor Cyan "                by Frisky.7952"
+''
+$versionMinimum = [Version]'4.0.0.0'
+"PowerShell required version: $versionMinimum"
+"         Running PowerShell: $($PSVersionTable.PSVersion)"
+if ($versionMinimum -gt $PSVersionTable.PSVersion) {
+     Write-Host -ForegroundColor Red "Error: Requires at least PowerShell version $versionMinimum to run."
+     exit
+}
+
 $ArcDPS_Site = "https://www.deltaconnected.com/arcdps/x64/"
 $ArcDPS_DLL = "d3d9.dll"
 $ArcDPS_HashFile = $ArcDPS_DLL + ".md5sum"
