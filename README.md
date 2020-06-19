@@ -46,7 +46,7 @@ C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noexit -ExecutionPoli
 ## Parameters
 | Switch | Description |
 | :----- | :---------- |
-| `-revert` | Toggle between backup and installed version of ArcDPS. Used to revert or troubleshoot a new version of ArcDPS. |
+| `-revert` | Toggle between backup and installed version of ArcDPS.<br/> Used to revert or troubleshoot a new version of ArcDPS. |
 | `-uninstall` | Used to uinstall ArcDPS from your Guild Wars 2 folder. |
 
 ## Examples
