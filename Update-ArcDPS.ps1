@@ -61,7 +61,7 @@ if ($versionMinimum -gt $PSVersionTable.PSVersion) {
 }
 
 $ArcDPS_Site = "https://www.deltaconnected.com/arcdps/x64/"
-$ArcDPS_DLL = "d3d9.dll"
+$ArcDPS_DLL = "d3d11.dll"
 $ArcDPS_HashFile = $ArcDPS_DLL+".md5sum"
 
 $GuildWars2InstallDirectory = Join-Path $env:ProgramFiles -ChildPath "Guild Wars 2\bin64"
