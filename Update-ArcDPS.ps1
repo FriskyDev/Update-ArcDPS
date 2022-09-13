@@ -64,7 +64,7 @@ $ArcDPS_Site = "https://www.deltaconnected.com/arcdps/x64/"
 $ArcDPS_DLL = "d3d11.dll"
 $ArcDPS_HashFile = $ArcDPS_DLL+".md5sum"
 
-$GuildWars2InstallDirectory = Join-Path $env:ProgramFiles -ChildPath "Guild Wars 2\bin64"
+$GuildWars2InstallDirectory = Join-Path $env:ProgramFiles -ChildPath "Guild Wars 2"
 
 $install_path = Join-Path $GuildWars2InstallDirectory $ArcDPS_DLL
 
