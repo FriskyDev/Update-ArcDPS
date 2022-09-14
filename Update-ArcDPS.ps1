@@ -36,8 +36,9 @@
     Reverts to the previous version of ArcDPS. Only works if you have a backup version.
 .NOTES
     Author: Frisky.7952
-    Last Edit: 6/12/2020
+    Last Edit: 9/13/2022
     Version 1.0 - Initial release
+    Version 1.1 - Updated to use DX11 (d3d11.dll) in the new location.
 
     Use this script at your own risk.
     While every effort was made to ensure that this script works as described, all software
