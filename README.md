@@ -87,7 +87,7 @@ completness of this software is expressed or implied.
 
 
 ```
-Version 1.0 6/12/2020 - Initial release
+Version 1.1 6/13/2022 - Update for DirectX 11
 ```
 
 Updated for use with DX11 (d3d11.dll) in the new location. You can go back to the
