@@ -84,3 +84,12 @@ Use this script at your own risk.
 While every effort was made to ensure that this script works as described, all software
 has bugs. No warranty is expressed or implied. No representation as to accuracy or
 completness of this software is expressed or implied.
+
+
+```
+Version 1.0 6/12/2020 - Initial release
+```
+
+Updated for use with DX11 (d3d11.dll) in the new location. You can go back to the
+old behavior by changing back to the dxd9.dll and add `\bin64` back to the end of
+the bin-path.
