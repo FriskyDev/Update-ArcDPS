@@ -18,6 +18,8 @@ of ArcDPS.
 
 > Warning: Use a DPS meter at your own discretion. See ArcDPS link for more details.
 
+For more information, see the [developer's site (https://deltaconnected.com/...)](https://www.deltaconnected.com/arcdps/).
+
 ## Installation and Use
 
 You can simply use the script from a PowerShell command prompt as you normally would. See the examples supplied below.
