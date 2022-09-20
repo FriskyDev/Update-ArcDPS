@@ -1,7 +1,9 @@
 # Update-ArcDPS.ps1
+
 Automatic software updater for ArcDPS (a Guild Wars 2 add-in DPS meter).
 
 ## Description
+
 This program is designed to check the ArcDPS website for updated versions of the
 program, and install it into the appropriate Guild Wars 2 folder. The script may
 be run over and over, and when newer versions of ArcDPS are found, the newer version
