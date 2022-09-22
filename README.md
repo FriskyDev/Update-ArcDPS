@@ -59,7 +59,6 @@ Check for a new version of ArcDPS, and if one is available, download and install
 
 ```
     PS C:\> Update-ArcDPS.ps1
-    
 ```
 
 Deletes ArcDPS and the backup, if it exists.
