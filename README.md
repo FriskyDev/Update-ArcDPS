@@ -58,7 +58,7 @@ C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noexit -ExecutionPoli
 Check for a new version of ArcDPS, and if one is available, download and install it.
 
 ```
-    PS C:\\> Update-ArcDPS.ps1
+    PS C:\> Update-ArcDPS.ps1
     
 ```
 
