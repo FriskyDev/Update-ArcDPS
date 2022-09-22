@@ -71,7 +71,7 @@ Deletes ArcDPS and the backup, if it exists.
 Reverts to the previous version of ArcDPS. Only works if you have a backup version.
 
 ```
-    PS C:\\> Update-ArcDPS.ps1 -revert
+    PS C:\> Update-ArcDPS.ps1 -revert
 ```
 
 ## Notes
