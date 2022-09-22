@@ -65,7 +65,7 @@ Check for a new version of ArcDPS, and if one is available, download and install
 Deletes ArcDPS and the backup, if it exists.
 
 ```
-    PS C:\\> Update-ArcDPS.ps1 -uninstall
+    PS C:\> Update-ArcDPS.ps1 -uninstall
 ```
 
 Reverts to the previous version of ArcDPS. Only works if you have a backup version.
